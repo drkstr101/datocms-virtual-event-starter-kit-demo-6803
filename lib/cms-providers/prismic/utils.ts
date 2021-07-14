@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 export function richTextAsText(richTextField: any) {
-  if (Object.prototype.toString.call(richTextField) !== '[object Array]') {
-    return '';
+  if (Object.prototype.toString.call(richTextField) !== "[object Array]") {
+    return ""
   }
-  return richTextField.map((block: any) => block.text).join(' ');
+  return richTextField.map((block: any) => block.text).join(" ")
 }
 
 export function getLinkUrl(linkField: any) {
-  return linkField && linkField.url ? linkField.url : '';
+  return linkField && linkField.url ? linkField.url : ""
 }

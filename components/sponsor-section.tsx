@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
-import Image from 'next/image';
-import cn from 'classnames';
-import { Sponsor } from '@lib/types';
-import styles from './sponsor-section.module.css';
-import styleUtils from './utils.module.css';
+import Link from "next/link"
+import Image from "next/image"
+import cn from "classnames"
+import { Sponsor } from "@lib/types"
+import styles from "./sponsor-section.module.css"
+import styleUtils from "./utils.module.css"
 
 type Props = {
-  sponsor: Sponsor;
-};
+  sponsor: Sponsor
+}
 
 export default function SponsorSection({ sponsor }: Props) {
   return (
@@ -48,7 +48,7 @@ export default function SponsorSection({ sponsor }: Props) {
       </Link>
       <div className={styles.layout}>
         <iframe
-          className={cn(styles.video, styleUtils.appear, styleUtils['appear-first'])}
+          className={cn(styles.video, styleUtils.appear, styleUtils["appear-first"])}
           allow="picture-in-picture"
           allowFullScreen
           frameBorder="0"
@@ -58,7 +58,7 @@ export default function SponsorSection({ sponsor }: Props) {
           width="100%"
         />
         <div className={styles.container}>
-          <div className={styles['name-and-logo']}>
+          <div className={styles["name-and-logo"]}>
             <Image
               alt={sponsor.name}
               src={sponsor.logo.url}
@@ -71,7 +71,7 @@ export default function SponsorSection({ sponsor }: Props) {
             <h1 className={styles.name}>{sponsor.name}</h1>
           </div>
           <p className={styles.description}>{sponsor.description}</p>
-          <div className={styles['sponsor-details']}>
+          <div className={styles["sponsor-details"]}>
             <a
               href={sponsor.callToActionLink}
               target="_blank"
@@ -86,20 +86,20 @@ export default function SponsorSection({ sponsor }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               type="button"
-              className={cn(styles.button, styles['button-link'])}
+              className={cn(styles.button, styles["button-link"])}
             >
               Chat on Discord
             </a>
           </div>
           <div className={styles.resources}>
             <h2 className={styles.heading}>Resources</h2>
-            {sponsor.links.map(link => (
+            {sponsor.links.map((link) => (
               <a
                 key={link.url}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn(styles.button, styles['button-resource'])}
+                className={cn(styles.button, styles["button-resource"])}
               >
                 <span className={styles.truncate}>{link.text}</span>
                 <svg
@@ -123,5 +123,5 @@ export default function SponsorSection({ sponsor }: Props) {
         </div>
       </div>
     </>
-  );
+  )
 }

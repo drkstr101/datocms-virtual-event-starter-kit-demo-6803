@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 
 export default function IconLogo({
-  backgroundColor = 'transparent',
-  foregroundColor = 'var(--accents-1)',
+  backgroundColor = "transparent",
+  foregroundColor = "var(--accents-1)",
   ...props
 }) {
   return (
@@ -36,5 +36,5 @@ export default function IconLogo({
         fill={foregroundColor}
       />
     </svg>
-  );
+  )
 }

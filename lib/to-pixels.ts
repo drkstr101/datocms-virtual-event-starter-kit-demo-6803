@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@
 // height: ${toPixels(height)}; (supports height={20} and height="20px")
 
 const toPixels = (value: string | number) => {
-  if (typeof value === 'number') {
-    return `${value}px`;
+  if (typeof value === "number") {
+    return `${value}px`
   }
 
-  return value;
-};
+  return value
+}
 
-export default toPixels;
+export default toPixels

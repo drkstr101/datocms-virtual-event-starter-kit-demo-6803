@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,13 @@
 module.exports = {
   images: {
     domains: [
-      'www.datocms-assets.com',
-      'a.storyblok.com',
-      'images.ctfassets.net',
-      'images.prismic.io',
-      'cdn.aglty.io',
-      'localhost' // For Strapi
+      "www.datocms-assets.com",
+      "a.storyblok.com",
+      "images.ctfassets.net",
+      "images.prismic.io",
+      "cdn.aglty.io",
+      "localhost" // For Strapi
     ],
     imageSizes: [24, 64, 300]
   }
-};
+}

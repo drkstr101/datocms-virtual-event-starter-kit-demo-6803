@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,31 @@
  * limitations under the License.
  */
 
-import { GetStaticProps, GetStaticPaths } from 'next';
-import Error from 'next/error';
-import Head from 'next/head';
-import { SkipNavContent } from '@reach/skip-nav';
-import redis from '@lib/redis';
+import { GetStaticProps, GetStaticPaths } from "next"
+import Error from "next/error"
+import Head from "next/head"
+import { SkipNavContent } from "@reach/skip-nav"
+import redis from "@lib/redis"
 
-import Page from '@components/page';
-import ConfContent from '@components/index';
-import { SITE_URL, SITE_NAME, META_DESCRIPTION, SAMPLE_TICKET_NUMBER } from '@lib/constants';
+import Page from "@components/page"
+import ConfContent from "@components/index"
+import { SITE_URL, SITE_NAME, META_DESCRIPTION, SAMPLE_TICKET_NUMBER } from "@lib/constants"
 
 type Props = {
-  username: string | null;
-  usernameFromParams: string | null;
-  name: string | null;
-  ticketNumber: number | null;
-};
+  username: string | null
+  usernameFromParams: string | null
+  name: string | null
+  ticketNumber: number | null
+}
 
-export default function TicketShare({ username, ticketNumber, name, usernameFromParams }: Props) {
+export default function TicketShare({
+  username,
+  ticketNumber,
+  name,
+  usernameFromParams
+}: Props) {
   if (!ticketNumber) {
-    return <Error statusCode={404} />;
+    return <Error statusCode={404} />
   }
 
   const meta = username
@@ -44,11 +49,11 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
         url: `${SITE_URL}/tickets/${username}`
       }
     : {
-        title: 'Ticket Demo - Virtual Event Starter Kit',
+        title: "Ticket Demo - Virtual Event Starter Kit",
         description: META_DESCRIPTION,
         image: `/api/ticket-images/${usernameFromParams}`,
         url: `${SITE_URL}/tickets/${usernameFromParams}`
-      };
+      }
 
   return (
     <Page meta={meta}>
@@ -59,21 +64,25 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
       <ConfContent
         defaultUserData={{
           username: username || undefined,
-          name: name || '',
+          name: name || "",
           ticketNumber
         }}
         sharePage
       />
     </Page>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const username = params?.username?.toString() || null;
+  const username = params?.username?.toString() || null
 
   if (redis) {
     if (username) {
-      const [name, ticketNumber] = await redis.hmget(`user:${username}`, 'name', 'ticketNumber');
+      const [name, ticketNumber] = await redis.hmget(
+        `user:${username}`,
+        "name",
+        "ticketNumber"
+      )
 
       if (ticketNumber) {
         return {
@@ -84,7 +93,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
             ticketNumber: parseInt(ticketNumber, 10) || null
           },
           revalidate: 5
-        };
+        }
       }
     }
     return {
@@ -95,7 +104,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         ticketNumber: null
       },
       revalidate: 5
-    };
+    }
   } else {
     return {
       props: {
@@ -105,13 +114,13 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         ticketNumber: SAMPLE_TICKET_NUMBER
       },
       revalidate: 5
-    };
+    }
   }
-};
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return Promise.resolve({
     paths: [],
-    fallback: 'blocking'
-  });
-};
+    fallback: "blocking"
+  })
+}

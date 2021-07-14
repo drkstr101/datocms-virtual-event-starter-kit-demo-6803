@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticProps, GetStaticPaths } from "next"
 
-import Page from '@components/page';
-import SpeakerSection from '@components/speaker-section';
-import Layout from '@components/layout';
+import Page from "@components/page"
+import SpeakerSection from "@components/speaker-section"
+import Layout from "@components/layout"
 
-import { getAllSpeakers } from '@lib/cms-api';
-import { Speaker } from '@lib/types';
-import { META_DESCRIPTION } from '@lib/constants';
+import { getAllSpeakers } from "@lib/cms-api"
+import { Speaker } from "@lib/types"
+import { META_DESCRIPTION } from "@lib/constants"
 
 type Props = {
-  speaker: Speaker;
-};
+  speaker: Speaker
+}
 
 export default function SpeakerPage({ speaker }: Props) {
   const meta = {
-    title: 'Demo - Virtual Event Starter Kit',
+    title: "Demo - Virtual Event Starter Kit",
     description: META_DESCRIPTION
-  };
+  }
 
   return (
     <Page meta={meta}>
@@ -40,18 +40,18 @@ export default function SpeakerPage({ speaker }: Props) {
         <SpeakerSection speaker={speaker} />
       </Layout>
     </Page>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const slug = params?.slug;
-  const speakers = await getAllSpeakers();
-  const currentSpeaker = speakers.find((s: Speaker) => s.slug === slug) || null;
+  const slug = params?.slug
+  const speakers = await getAllSpeakers()
+  const currentSpeaker = speakers.find((s: Speaker) => s.slug === slug) || null
 
   if (!currentSpeaker) {
     return {
       notFound: true
-    };
+    }
   }
 
   return {
@@ -59,15 +59,15 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
       speaker: currentSpeaker
     },
     revalidate: 60
-  };
-};
+  }
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const speakers = await getAllSpeakers();
-  const slugs = speakers.map((s: Speaker) => ({ params: { slug: s.slug } }));
+  const speakers = await getAllSpeakers()
+  const slugs = speakers.map((s: Speaker) => ({ params: { slug: s.slug } }))
 
   return {
     paths: slugs,
     fallback: false
-  };
-};
+  }
+}

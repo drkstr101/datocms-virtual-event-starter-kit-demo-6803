@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,32 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Job, Sponsor, Stage, Speaker } from '@lib/types';
+import { Job, Sponsor, Stage, Speaker } from "@lib/types"
 
-const API_URL = 'https://graphql.datocms.com/';
-const API_TOKEN = process.env.DATOCMS_READ_ONLY_API_TOKEN;
+const API_URL = "https://graphql.datocms.com/"
+const API_TOKEN = process.env.DATOCMS_READ_ONLY_API_TOKEN
 
-async function fetchCmsAPI(query: string, { variables }: { variables?: Record<string, any> } = {}) {
+async function fetchCmsAPI(
+  query: string,
+  { variables }: { variables?: Record<string, any> } = {}
+) {
   const res = await fetch(API_URL, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${API_TOKEN}`
     },
     body: JSON.stringify({
       query,
       variables
     })
-  });
+  })
 
-  const json = await res.json();
+  const json = await res.json()
   if (json.errors) {
     // eslint-disable-next-line no-console
-    console.error(json.errors);
-    throw new Error('Failed to fetch API');
+    console.error(json.errors)
+    throw new Error("Failed to fetch API")
   }
 
-  return json.data;
+  return json.data
 }
 
 export async function getAllSpeakers(): Promise<Speaker[]> {
@@ -64,9 +67,9 @@ export async function getAllSpeakers(): Promise<Speaker[]> {
         }
       }
     }
-  `);
+  `)
 
-  return data.allSpeakers;
+  return data.allSpeakers
 }
 
 export async function getAllStages(): Promise<Stage[]> {
@@ -91,9 +94,9 @@ export async function getAllStages(): Promise<Stage[]> {
         }
       }
     }
-  `);
+  `)
 
-  return data.allStages;
+  return data.allStages
 }
 
 export async function getAllSponsors(): Promise<Sponsor[]> {
@@ -121,9 +124,9 @@ export async function getAllSponsors(): Promise<Sponsor[]> {
         }
       }
     }
-  `);
+  `)
 
-  return data.allCompanies;
+  return data.allCompanies
 }
 
 export async function getAllJobs(): Promise<Job[]> {
@@ -139,7 +142,7 @@ export async function getAllJobs(): Promise<Job[]> {
         rank
       }
     }
-  `);
+  `)
 
-  return data.allJobs;
+  return data.allJobs
 }

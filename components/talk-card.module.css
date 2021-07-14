@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,8 @@
   max-width: var(--talk-card-width, 270px);
   padding: 1px;
   background-clip: content-box, border-box;
-  background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
+  background-image: linear-gradient(#111111, #111111),
+    linear-gradient(to right, #333333, #333333);
 }
 .card:hover {
   background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #aaa, #aaa);

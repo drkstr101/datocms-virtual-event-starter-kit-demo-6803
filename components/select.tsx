@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import cn from 'classnames';
-import styles from './select.module.css';
+import cn from "classnames"
+import styles from "./select.module.css"
 
-export default function Select({ className, ...props }: JSX.IntrinsicElements['select']) {
+export default function Select({ className, ...props }: JSX.IntrinsicElements["select"]) {
   return (
     <div className={styles.container}>
       <select className={cn(styles.select, className)} {...props} />
@@ -37,5 +37,5 @@ export default function Select({ className, ...props }: JSX.IntrinsicElements['s
         </svg>
       </div>
     </div>
-  );
+  )
 }

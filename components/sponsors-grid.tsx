@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
-import Image from 'next/image';
-import cn from 'classnames';
-import { Sponsor } from '@lib/types';
-import styles from './sponsors-grid.module.css';
+import Link from "next/link"
+import Image from "next/image"
+import cn from "classnames"
+import { Sponsor } from "@lib/types"
+import styles from "./sponsors-grid.module.css"
 
 function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   return (
@@ -27,8 +27,8 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
         role="button"
         tabIndex={0}
         className={cn(styles.card, {
-          [styles.diamond]: sponsor.tier === 'diamond',
-          [styles.gold]: sponsor.tier === 'gold'
+          [styles.diamond]: sponsor.tier === "diamond",
+          [styles.gold]: sponsor.tier === "gold"
         })}
       >
         <div className={styles.imageWrapper}>
@@ -36,7 +36,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
             alt={sponsor.name}
             src={sponsor.cardImage.url}
             className={cn(styles.image, {
-              [styles.silver]: sponsor.tier === 'silver'
+              [styles.silver]: sponsor.tier === "silver"
             })}
             loading="lazy"
             title={sponsor.name}
@@ -44,7 +44,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
             height={500}
           />
         </div>
-        {sponsor.tier !== 'silver' && (
+        {sponsor.tier !== "silver" && (
           <div className={styles.cardBody}>
             <div>
               <h2 className={styles.name}>{sponsor.name}</h2>
@@ -54,29 +54,29 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
         )}
       </a>
     </Link>
-  );
+  )
 }
 
 type Props = {
-  sponsors: Sponsor[];
-};
+  sponsors: Sponsor[]
+}
 
 export default function SponsorsGrid({ sponsors }: Props) {
-  const silverSponsors = sponsors.filter(s => s.tier === 'silver');
-  const otherSponsors = sponsors.filter(s => s.tier !== 'silver');
+  const silverSponsors = sponsors.filter((s) => s.tier === "silver")
+  const otherSponsors = sponsors.filter((s) => s.tier !== "silver")
 
   return (
     <>
       <div className={styles.grid}>
-        {otherSponsors.map(sponsor => (
+        {otherSponsors.map((sponsor) => (
           <SponsorCard key={sponsor.name} sponsor={sponsor} />
         ))}
       </div>
       <div className={styles.grid}>
-        {silverSponsors.map(sponsor => (
+        {silverSponsors.map((sponsor) => (
           <SponsorCard key={sponsor.name} sponsor={sponsor} />
         ))}
       </div>
     </>
-  );
+  )
 }

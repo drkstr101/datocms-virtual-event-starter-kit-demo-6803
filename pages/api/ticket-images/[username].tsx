@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,44 +14,46 @@
  * limitations under the License.
  */
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import screenshot from '@lib/screenshot';
-import { SITE_URL, SAMPLE_TICKET_NUMBER } from '@lib/constants';
-import redis from '@lib/redis';
+import { NextApiRequest, NextApiResponse } from "next"
+import screenshot from "@lib/screenshot"
+import { SITE_URL, SAMPLE_TICKET_NUMBER } from "@lib/constants"
+import redis from "@lib/redis"
 
 export default async function ticketImages(req: NextApiRequest, res: NextApiResponse) {
-  let url: string;
-  const { username } = req.query || {};
+  let url: string
+  const { username } = req.query || {}
   if (username) {
     if (redis) {
-      const usernameString = username.toString();
+      const usernameString = username.toString()
       const [name, ticketNumber] = await redis.hmget(
         `user:${usernameString}`,
-        'name',
-        'ticketNumber'
-      );
+        "name",
+        "ticketNumber"
+      )
       if (!ticketNumber) {
-        res.statusCode = 404;
-        return res.end('Not Found');
+        res.statusCode = 404
+        return res.end("Not Found")
       }
       url = `${SITE_URL}/ticket-image?username=${encodeURIComponent(
         usernameString
-      )}&ticketNumber=${encodeURIComponent(ticketNumber)}`;
+      )}&ticketNumber=${encodeURIComponent(ticketNumber)}`
       if (name) {
-        url = `${url}&name=${encodeURIComponent(name)}`;
+        url = `${url}&name=${encodeURIComponent(name)}`
       }
     } else {
-      url = `${SITE_URL}/ticket-image?ticketNumber=${encodeURIComponent(SAMPLE_TICKET_NUMBER)}`;
+      url = `${SITE_URL}/ticket-image?ticketNumber=${encodeURIComponent(
+        SAMPLE_TICKET_NUMBER
+      )}`
     }
-    const file = await screenshot(url);
-    res.setHeader('Content-Type', `image/png`);
+    const file = await screenshot(url)
+    res.setHeader("Content-Type", `image/png`)
     res.setHeader(
-      'Cache-Control',
+      "Cache-Control",
       `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
-    );
-    res.statusCode = 200;
-    res.end(file);
+    )
+    res.statusCode = 200
+    res.end(file)
   } else {
-    res.status(404).send('Not Found');
+    res.status(404).send("Not Found")
   }
 }

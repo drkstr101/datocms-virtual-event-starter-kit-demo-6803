@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { Job } from '@lib/types';
-import styles from './jobs-grid.module.css';
+import { Job } from "@lib/types"
+import styles from "./jobs-grid.module.css"
 
 type Props = {
-  jobs: Job[];
-};
+  jobs: Job[]
+}
 
 function CompanyJobs({ jobs }: Props) {
   return (
     <div className={styles.grid}>
-      {jobs.map(job => (
+      {jobs.map((job) => (
         <a
           key={job.id}
           className={styles.card}
@@ -61,14 +61,14 @@ function CompanyJobs({ jobs }: Props) {
         </a>
       ))}
     </div>
-  );
+  )
 }
 
 export default function JobsGrid({ jobs }: Props) {
   const companies = jobs.reduce((allCompanies: any, job) => {
-    allCompanies[job.companyName] = [...(allCompanies[job.companyName] || []), job];
-    return allCompanies;
-  }, {});
+    allCompanies[job.companyName] = [...(allCompanies[job.companyName] || []), job]
+    return allCompanies
+  }, {})
 
   return (
     <>
@@ -99,5 +99,5 @@ export default function JobsGrid({ jobs }: Props) {
         </div>
       ))}
     </>
-  );
+  )
 }

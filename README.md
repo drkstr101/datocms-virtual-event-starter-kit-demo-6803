@@ -65,7 +65,7 @@ Environment variables determine which CMS to use. See [`lib/cms-api.ts`](lib/cms
 - [Contentful](lib/cms-providers/contentful.ts)
 - [Prismic](lib/cms-providers/prismic/index.ts) ([Instructions](lib/cms-providers/prismic/README.md))
 - [Sanity](https://create.sanity.io/?template=sanity-io%2Fsanity-template-nextjs-event-starter)
-- [Storyblok](lib/cms-providers/storyblok.ts) 
+- [Storyblok](lib/cms-providers/storyblok.ts)
   - Click the following link to create the space for this starter kit in Storyblok: [Create Event Space](https://app.storyblok.com/#!/build/101757)
 
 ### Constants
@@ -174,65 +174,65 @@ For Next.js Conf, we used Discord for conference attendees to chat. On each stag
 If you'd like to add similar functionality to your conference, you can use the [API route](https://nextjs.org/docs/api-routes/introduction) below to fetch messages after creating a Discord bot. This API route is set up with the proper caching headers and ensures you won't get rate-limited with high traffic.
 
 ```ts
-import ms from 'ms';
-import fetch, { Headers, RequestInit } from 'node-fetch';
-import { NextApiRequest, NextApiResponse } from 'next';
+import ms from "ms"
+import fetch, { Headers, RequestInit } from "node-fetch"
+import { NextApiRequest, NextApiResponse } from "next"
 
 interface Reaction {
-  emoji: { name: string };
+  emoji: { name: string }
 }
 
 interface Message {
-  id: string;
-  channel_id: string;
-  content: string;
-  timestamp: string;
+  id: string
+  channel_id: string
+  content: string
+  timestamp: string
   author: {
-    username: string;
-  };
-  reactions?: Reaction[];
+    username: string
+  }
+  reactions?: Reaction[]
 }
 
 interface ReactionSelector {
-  id: string;
+  id: string
 }
 
 // After creating a bot, add the token as an environment var
-const { DISCORD_BOT_TOKEN } = process.env;
+const { DISCORD_BOT_TOKEN } = process.env
 
 // Number of seconds to cache the API response for
-const EXPIRES_SECONDS = 60;
+const EXPIRES_SECONDS = 60
 
 // Emoji that should be selected by a whitelisted user
 // in order for this API to return the message
-const EMOJI = '🎥';
+const EMOJI = "🎥"
 
 // Whitelisted user IDs that are allowed to add the emoji to influence this API
 const USERS = [
-  '752552204124291104' // username
-];
+  "752552204124291104" // username
+]
 
 // Discord base API URL
-const API = 'https://discordapp.com/api/';
+const API = "https://discordapp.com/api/"
 
 // Map of Stage names to Discord channel IDs
 const CHANNELS = new Map<string, string>([
-  ['a', '769350098697191515'],
-  ['c', '769350352226877549'],
-  ['m', '769350396623192074'],
-  ['e', '769350429644685351']
-]);
+  ["a", "769350098697191515"],
+  ["c", "769350352226877549"],
+  ["m", "769350396623192074"],
+  ["e", "769350429644685351"]
+])
 
 const api = (url: string, opts: RequestInit = {}) => {
-  const headers = new Headers(opts.headers);
-  headers.set('Authorization', `Bot ${DISCORD_BOT_TOKEN}`);
-  headers.set('User-Agent', 'Discord Bot (https://yoursite.com/conf, v0.1)');
+  const headers = new Headers(opts.headers)
+  headers.set("Authorization", `Bot ${DISCORD_BOT_TOKEN}`)
+  headers.set("User-Agent", "Discord Bot (https://yoursite.com/conf, v0.1)")
 
   return fetch(`${API}${url}`, {
     ...opts,
     headers
-  });
-};
+  })
+}
 
 async function getReactionSelectors(
   channelId: string,
@@ -241,11 +241,11 @@ async function getReactionSelectors(
 ): Promise<ReactionSelector[]> {
   const res = await api(
     `channels/${channelId}/messages/${messageId}/reactions/${encodeURIComponent(emoji)}`
-  );
+  )
   if (!res.ok) {
-    throw new Error(`Failed to get message reactions: ${await res.text()} (${res.status})`);
+    throw new Error(`Failed to get message reactions: ${await res.text()} (${res.status})`)
   }
-  return res.json();
+  return res.json()
 }
 
 async function getLatestMessageWithEmoji(
@@ -257,15 +257,15 @@ async function getLatestMessageWithEmoji(
     if (!message.content.trim()) {
       // Empty message, ignore
       // You could also filter messages here
-      continue;
+      continue
     }
     for (const reaction of message.reactions || []) {
       if (reaction.emoji.name === emoji) {
-        const selectors = await getReactionSelectors(message.channel_id, message.id, emoji);
-        const selector = selectors.find(r => usersWhitelist.includes(r.id));
+        const selectors = await getReactionSelectors(message.channel_id, message.id, emoji)
+        const selector = selectors.find((r) => usersWhitelist.includes(r.id))
         if (selector) {
           // The correct emoji was added from a whitelisted user
-          return { message, selector };
+          return { message, selector }
         }
       }
     }
@@ -273,50 +273,50 @@ async function getLatestMessageWithEmoji(
 }
 
 export default async function getDiscordMessage(req: NextApiRequest, res: NextApiResponse) {
-  const { stage } = req.query;
-  if (typeof stage !== 'string') {
-    return res.status(400).json({ error: 'Query parameter "stage" must be a string' });
+  const { stage } = req.query
+  if (typeof stage !== "string") {
+    return res.status(400).json({ error: 'Query parameter "stage" must be a string' })
   }
 
-  const channelId = CHANNELS.get(stage);
+  const channelId = CHANNELS.get(stage)
   if (!channelId) {
-    return res.status(400).json({ error: `Invalid "stage": ${stage}` });
+    return res.status(400).json({ error: `Invalid "stage": ${stage}` })
   }
 
-  const apiRes = await api(`channels/${channelId}/messages`);
-  let messages: Message[] = [];
+  const apiRes = await api(`channels/${channelId}/messages`)
+  let messages: Message[] = []
   if (apiRes.status !== 429 && apiRes.ok) {
-    messages = await apiRes.json();
+    messages = await apiRes.json()
   }
 
   if (apiRes.status === 429) {
-    const reset = apiRes.headers.get('X-RateLimit-Reset-After') || 5;
+    const reset = apiRes.headers.get("X-RateLimit-Reset-After") || 5
     res.setHeader(
-      'Cache-Control',
+      "Cache-Control",
       `s-maxage=${reset}, public, must-revalidate, stale-while-revalidate`
-    );
+    )
   }
 
-  const messageToShow = await getLatestMessageWithEmoji(messages, EMOJI, USERS);
+  const messageToShow = await getLatestMessageWithEmoji(messages, EMOJI, USERS)
   if (!messageToShow) {
-    return res.status(404).json({ error: 'Could not find message with emoji' });
+    return res.status(404).json({ error: "Could not find message with emoji" })
   }
 
   const body = {
     username: messageToShow.message.author.username,
     content: messageToShow.message.content,
     timestamp: messageToShow.message.timestamp
-  };
+  }
 
   // Set caching headers
-  const expires = new Date(Date.now() + ms(`${EXPIRES_SECONDS}s`));
-  res.setHeader('Expires', expires.toUTCString());
+  const expires = new Date(Date.now() + ms(`${EXPIRES_SECONDS}s`))
+  res.setHeader("Expires", expires.toUTCString())
   res.setHeader(
-    'Cache-Control',
+    "Cache-Control",
     `s-maxage=${EXPIRES_SECONDS}, immutable, must-revalidate, stale-while-revalidate`
-  );
+  )
 
-  return res.status(200).json(body);
+  return res.status(200).json(body)
 }
 ```
 

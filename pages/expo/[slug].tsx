@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticProps, GetStaticPaths } from "next"
 
-import Page from '@components/page';
-import SponsorSection from '@components/sponsor-section';
-import Layout from '@components/layout';
+import Page from "@components/page"
+import SponsorSection from "@components/sponsor-section"
+import Layout from "@components/layout"
 
-import { getAllSponsors } from '@lib/cms-api';
-import { Sponsor } from '@lib/types';
-import { META_DESCRIPTION } from '@lib/constants';
+import { getAllSponsors } from "@lib/cms-api"
+import { Sponsor } from "@lib/types"
+import { META_DESCRIPTION } from "@lib/constants"
 
 type Props = {
-  sponsor: Sponsor;
-};
+  sponsor: Sponsor
+}
 
 export default function SponsorPage({ sponsor }: Props) {
   const meta = {
-    title: 'Demo - Virtual Event Starter Kit',
+    title: "Demo - Virtual Event Starter Kit",
     description: META_DESCRIPTION
-  };
+  }
 
   return (
     <Page meta={meta}>
@@ -40,18 +40,18 @@ export default function SponsorPage({ sponsor }: Props) {
         <SponsorSection sponsor={sponsor} />
       </Layout>
     </Page>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const slug = params?.slug;
-  const sponsors = await getAllSponsors();
-  const sponsor = sponsors.find((s: Sponsor) => s.slug === slug) || null;
+  const slug = params?.slug
+  const sponsors = await getAllSponsors()
+  const sponsor = sponsors.find((s: Sponsor) => s.slug === slug) || null
 
   if (!sponsor) {
     return {
       notFound: true
-    };
+    }
   }
 
   return {
@@ -59,15 +59,15 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
       sponsor
     },
     revalidate: 60
-  };
-};
+  }
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const sponsors = await getAllSponsors();
-  const slugs = sponsors.map((s: Sponsor) => ({ params: { slug: s.slug } }));
+  const sponsors = await getAllSponsors()
+  const slugs = sponsors.map((s: Sponsor) => ({ params: { slug: s.slug } }))
 
   return {
     paths: slugs,
-    fallback: 'blocking'
-  };
-};
+    fallback: "blocking"
+  }
+}

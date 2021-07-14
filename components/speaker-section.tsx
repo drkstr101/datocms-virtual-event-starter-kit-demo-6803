@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
-import Image from 'next/image';
-import cn from 'classnames';
-import GithubIcon from '@components/icons/icon-github';
-import { Speaker } from '@lib/types';
-import styles from './speaker-section.module.css';
+import Link from "next/link"
+import Image from "next/image"
+import cn from "classnames"
+import GithubIcon from "@components/icons/icon-github"
+import { Speaker } from "@lib/types"
+import styles from "./speaker-section.module.css"
 
 const TwitterIcon = () => (
   <svg width={24} viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -28,11 +28,11 @@ const TwitterIcon = () => (
       fill="#D8D8D8"
     />
   </svg>
-);
+)
 
 type Props = {
-  speaker: Speaker;
-};
+  speaker: Speaker
+}
 
 export default function SpeakerSection({ speaker }: Props) {
   return (
@@ -56,7 +56,7 @@ export default function SpeakerSection({ speaker }: Props) {
         </a>
       </Link>
       <div key={speaker.name} className={styles.container}>
-        <div style={{ minWidth: '300px' }}>
+        <div style={{ minWidth: "300px" }}>
           <Image
             alt={speaker.name}
             title={speaker.name}
@@ -67,16 +67,16 @@ export default function SpeakerSection({ speaker }: Props) {
             width={300}
           />
         </div>
-        <div className={styles['speaker-details']}>
+        <div className={styles["speaker-details"]}>
           <div>
             <h1 className={styles.name}>{speaker.name}</h1>
             <p className={styles.title}>
               {`${speaker.title} @ `}
               <span className={styles.company}>{speaker.company}</span>
             </p>
-            <h2 className={styles['bio-header']}>Bio</h2>
+            <h2 className={styles["bio-header"]}>Bio</h2>
             <p className={styles.bio}>{speaker.bio}</p>
-            <h3 className={styles['socials-header']}>Social Media</h3>
+            <h3 className={styles["socials-header"]}>Social Media</h3>
             {speaker.twitter ? (
               <a
                 aria-label="Twitter"
@@ -110,11 +110,11 @@ export default function SpeakerSection({ speaker }: Props) {
         </div>
       </div>
       {speaker.talk && (
-        <div className={styles['talk-details']}>
-          <h3 className={styles['socials-header']}>{speaker.talk.title}</h3>
+        <div className={styles["talk-details"]}>
+          <h3 className={styles["socials-header"]}>{speaker.talk.title}</h3>
           <p>{speaker.talk.description}</p>
         </div>
       )}
     </>
-  );
+  )
 }

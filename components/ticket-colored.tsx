@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,5 +37,5 @@ export default function TicketColored() {
       />
       <path d="M512 5V326" stroke="#444444" strokeDasharray="6 6" />
     </svg>
-  );
+  )
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import { GetStaticProps } from 'next';
+import { GetStaticProps } from "next"
 
-import Page from '@components/page';
-import SpeakersGrid from '@components/speakers-grid';
-import Layout from '@components/layout';
-import Header from '@components/header';
+import Page from "@components/page"
+import SpeakersGrid from "@components/speakers-grid"
+import Layout from "@components/layout"
+import Header from "@components/header"
 
-import { getAllSpeakers } from '@lib/cms-api';
-import { Speaker } from '@lib/types';
-import { META_DESCRIPTION } from '@lib/constants';
+import { getAllSpeakers } from "@lib/cms-api"
+import { Speaker } from "@lib/types"
+import { META_DESCRIPTION } from "@lib/constants"
 
 type Props = {
-  speakers: Speaker[];
-};
+  speakers: Speaker[]
+}
 
 export default function Speakers({ speakers }: Props) {
   const meta = {
-    title: 'Speakers - Virtual Event Starter Kit',
+    title: "Speakers - Virtual Event Starter Kit",
     description: META_DESCRIPTION
-  };
+  }
   return (
     <Page meta={meta}>
       <Layout>
@@ -41,16 +41,16 @@ export default function Speakers({ speakers }: Props) {
         <SpeakersGrid speakers={speakers} />
       </Layout>
     </Page>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const speakers = await getAllSpeakers();
+  const speakers = await getAllSpeakers()
 
   return {
     props: {
       speakers
     },
     revalidate: 60
-  };
-};
+  }
+}

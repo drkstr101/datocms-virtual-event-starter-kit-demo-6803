@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import styles from './conf-container.module.css';
+import styles from "./conf-container.module.css"
 
 export default function ConfContainer({ children }: { children: React.ReactNode }) {
-  return <div className={styles.container}>{children}</div>;
+  return <div className={styles.container}>{children}</div>
 }

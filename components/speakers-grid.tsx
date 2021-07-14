@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Speaker } from '@lib/types';
-import styles from './speakers-grid.module.css';
+import Link from "next/link"
+import Image from "next/image"
+import { Speaker } from "@lib/types"
+import styles from "./speakers-grid.module.css"
 
 type Props = {
-  speakers: Speaker[];
-};
+  speakers: Speaker[]
+}
 
 export default function SpeakersGrid({ speakers }: Props) {
   return (
     <div className={styles.grid}>
-      {speakers.map(speaker => (
+      {speakers.map((speaker) => (
         <Link key={speaker.name} href={`/speakers/${speaker.slug}`}>
           <a role="button" tabIndex={0} className={styles.card}>
             <div className={styles.imageWrapper}>
@@ -54,5 +54,5 @@ export default function SpeakersGrid({ speakers }: Props) {
         </Link>
       ))}
     </div>
-  );
+  )
 }

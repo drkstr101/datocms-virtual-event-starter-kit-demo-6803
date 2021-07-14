@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import styles from './header.module.css';
+import styles from "./header.module.css"
 
 type Props = {
-  hero: React.ReactNode;
-  description: React.ReactNode;
-};
+  hero: React.ReactNode
+  description: React.ReactNode
+}
 
 export default function Header({ hero, description }: Props) {
   return (
@@ -27,5 +27,5 @@ export default function Header({ hero, description }: Props) {
       <h1 className={styles.hero}>{hero}</h1>
       <p className={styles.description}>{description}</p>
     </>
-  );
+  )
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ export default function IconAvatar() {
         <circle cx="40" cy="40" r="40" fill="white" />
       </mask>
       <g mask="url(#avatar-mask0)">
-        <g style={{ mixBlendMode: 'luminosity' }}>
+        <g style={{ mixBlendMode: "luminosity" }}>
           <circle cx="40" cy="40" r="40" fill="#2F3336" />
         </g>
       </g>
@@ -54,5 +54,5 @@ export default function IconAvatar() {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }

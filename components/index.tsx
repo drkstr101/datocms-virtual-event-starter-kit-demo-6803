@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
-import { PageState, ConfDataContext, UserData } from '@lib/hooks/use-conf-data';
-import Ticket from './ticket';
-import Layout from './layout';
-import ConfContainer from './conf-container';
-import Hero from './hero';
-import Form from './form';
-import LearnMore from './learn-more';
+import { useState } from "react"
+import { PageState, ConfDataContext, UserData } from "@lib/hooks/use-conf-data"
+import Ticket from "./ticket"
+import Layout from "./layout"
+import ConfContainer from "./conf-container"
+import Hero from "./hero"
+import Form from "./form"
+import LearnMore from "./learn-more"
 
 type Props = {
-  defaultUserData: UserData;
-  sharePage?: boolean;
-  defaultPageState?: PageState;
-};
+  defaultUserData: UserData
+  sharePage?: boolean
+  defaultPageState?: PageState
+}
 
 export default function Conf({
   defaultUserData,
   sharePage,
-  defaultPageState = 'registration'
+  defaultPageState = "registration"
 }: Props) {
-  const [userData, setUserData] = useState<UserData>(defaultUserData);
-  const [pageState, setPageState] = useState<PageState>(defaultPageState);
+  const [userData, setUserData] = useState<UserData>(defaultUserData)
+  const [pageState, setPageState] = useState<PageState>(defaultPageState)
 
   return (
     <ConfDataContext.Provider
@@ -47,7 +47,7 @@ export default function Conf({
     >
       <Layout>
         <ConfContainer>
-          {pageState === 'registration' && !sharePage ? (
+          {pageState === "registration" && !sharePage ? (
             <>
               <Hero />
               <Form />
@@ -64,5 +64,5 @@ export default function Conf({
         </ConfContainer>
       </Layout>
     </ConfDataContext.Provider>
-  );
+  )
 }

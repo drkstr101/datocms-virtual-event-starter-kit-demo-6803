@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Vercel Inc.
+ * Copyright 2021 Watheia Labs, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import TicketImage from '@components/ticket-image';
+import TicketImage from "@components/ticket-image"
 
 export default function TicketOnlyPage() {
-  return <TicketImage />;
+  return <TicketImage />
 }
